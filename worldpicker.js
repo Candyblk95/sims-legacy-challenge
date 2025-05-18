@@ -15,13 +15,17 @@ function typewriterEffect(text, element, speed = 20) {
   const interval = setInterval(() => {
     element.textContent += text.charAt(i);
 
-    // Play sound every 2 characters, skipping spaces
+    // Only play sound if not space and every 2 characters
     if (i % 2 === 0 && text.charAt(i) !== " ") {
       const typeSound = document.getElementById("typeSound");
       if (typeSound) {
-        const clone = typeSound.cloneNode(); // create a fresh instance
-        clone.volume = 0.4; // optional: quieter sound
-        clone.play();
+        try {
+          const clone = typeSound.cloneNode(); // New audio element each time
+          clone.volume = 0.4; // softer keystroke
+          clone.play();
+        } catch (e) {
+          console.warn("Typewriter sound error:", e);
+        }
       }
     }
 
@@ -31,6 +35,7 @@ function typewriterEffect(text, element, speed = 20) {
     }
   }, speed);
 }
+
 
 
 function rollWorld() {
