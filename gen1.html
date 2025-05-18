@@ -64,6 +64,14 @@
   <button id="rollAllTraits">Roll Traits</button>
 </section>
 
+<section>
+  <h2>🪪 Sim ID Card</h2>
+  <canvas id="simIdCanvas" width="640" height="1000" style="max-width: 100%; border: 1px solid #ccc; border-radius: 8px;"></canvas><br><br>
+  <button onclick="generateSimIDCard()">🎫 Generate ID Card</button>
+  <button onclick="downloadSimIDCard()">⬇️ Download Card</button>
+</section>
+
+
     <section>
       <h2>🏚️ Lot Setup</h2>
       <ul>
@@ -215,5 +223,68 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   });
 });
+</script>
+<script>
+function generateSimIDCard() {
+  const canvas = document.getElementById("simIdCanvas");
+  const ctx = canvas.getContext("2d");
+
+  // Load background image
+  const bg = new Image();
+  bg.src = "SimID.png"; // Make sure this is in your public repo or assets folder
+
+  bg.onload = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+
+    // Sim image
+    const simImageData = localStorage.getItem("simImage");
+    if (simImageData) {
+      const simPic = new Image();
+      simPic.onload = () => {
+        ctx.drawImage(simPic, 40, 60, 150, 200); // Sim image position
+        drawTextContent(); // draw text only after image loads
+      };
+      simPic.src = simImageData;
+    } else {
+      drawTextContent(); // fallback
+    }
+
+    function drawTextContent() {
+      const name = localStorage.getItem("simName") || "Unnamed Sim";
+      const trait1 = localStorage.getItem("trait1") || "-";
+      const trait2 = localStorage.getItem("trait2") || "-";
+      const trait3 = localStorage.getItem("trait3") || "-";
+      const worldResult = document.getElementById("worldResult").innerText.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
+
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "#222";
+
+      ctx.fillText("Name: " + name, 220, 80);
+      ctx.fillText("World: " + worldResult, 220, 120);
+      ctx.fillText("Traits:", 220, 160);
+      ctx.fillText("• " + trait1, 240, 200);
+      ctx.fillText("• " + trait2, 240, 230);
+      ctx.fillText("• " + trait3, 240, 260);
+
+      ctx.fillText("🎨 Palette:", 220, 320);
+      ctx.fillText("Burnt Sienna · Olive Green", 240, 350);
+      ctx.fillText("Charcoal Grey · Faded Linen", 240, 380);
+
+      ctx.fillText("🛋️ Style:", 220, 440);
+      ctx.fillText("Rustic Minimalism", 240, 470);
+      ctx.fillText("Wasteland Survival", 240, 500);
+      ctx.fillText("Handcrafted Solitude", 240, 530);
+    }
+  };
+}
+
+function downloadSimIDCard() {
+  const canvas = document.getElementById("simIdCanvas");
+  const link = document.createElement("a");
+  link.download = "SimID_Card.png";
+  link.href = canvas.toDataURL();
+  link.click();
+}
 </script>
 
