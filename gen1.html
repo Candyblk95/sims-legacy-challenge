@@ -274,20 +274,21 @@ function generateSimIDCard() {
       // Skills
       ctx.fillText("🎓 Skills : " + skills.join(", "), textX, baseY + lineHeight * 3);
 
-      // Move palette + style lower
-      ctx.font = "20px Arial";
-      ctx.fillText(
-        "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
-        80,
-        baseY + lineHeight * 6
-      );
+     // Move palette + style lower and center them
+ctx.font = "20px Arial";
+ctx.textAlign = "center";
+ctx.fillText(
+  "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
+  canvas.width / 2,
+  baseY + lineHeight * 6
+);
 
-      ctx.fillText(
-        "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
-        80,
-        baseY + lineHeight * 6.9
-      );
-    }
+ctx.fillText(
+  "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
+  canvas.width / 2,
+  baseY + lineHeight * 6.9
+);
+
 
     if (simImageData) {
       const simPic = new Image();
