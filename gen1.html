@@ -277,16 +277,21 @@ function generateSimIDCard() {
      // Move palette + style lower and center them
 ctx.font = "20px Arial";
 ctx.textAlign = "center";
+
+// Move slightly down and to the right (using x + offset)
+const shiftX = 20; // ➡️ nudge to the right
+const offsetY = 30; // ⬇️ nudge down from current spacing
+
 ctx.fillText(
   "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
-  canvas.width / 2,
-  baseY + lineHeight * 6
+  canvas.width / 2 + shiftX,
+  baseY + lineHeight * 6.6 + offsetY
 );
 
 ctx.fillText(
   "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
-  canvas.width / 2,
-  baseY + lineHeight * 6.9
+  canvas.width / 2 + shiftX,
+  baseY + lineHeight * 7.4 + offsetY
 );
 }
 
