@@ -12,22 +12,26 @@ function typewriterEffect(text, element, speed = 20) {
   element.textContent = "";
   let i = 0;
 
-  const typeSound = document.getElementById("typeSound");
-
   const interval = setInterval(() => {
     element.textContent += text.charAt(i);
-    i++;
 
-    if (typeSound && i % 2 === 0) {
-      typeSound.currentTime = 0;
-      typeSound.play();
+    // Play sound every 2 characters, skipping spaces
+    if (i % 2 === 0 && text.charAt(i) !== " ") {
+      const typeSound = document.getElementById("typeSound");
+      if (typeSound) {
+        const clone = typeSound.cloneNode(); // create a fresh instance
+        clone.volume = 0.4; // optional: quieter sound
+        clone.play();
+      }
     }
 
+    i++;
     if (i >= text.length) {
       clearInterval(interval);
     }
   }, speed);
 }
+
 
 function rollWorld() {
   let index;
