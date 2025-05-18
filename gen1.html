@@ -10,7 +10,7 @@
 </head>
 <body>
   <header>
-    <h1>Generation One – From Ashes</h1>
+    <h1>🌱 Generation One – From Ashes</h1>
     <nav>
       <a href="index.html">Home</a>
     </nav>
@@ -18,29 +18,97 @@
 
   <main>
     <section>
-      <h2>🎲 Roll Your World</h2>
-      <p>Click the button below to determine where your Sim begins their story:</p>
+      <h2>🎲 World & Backstory Selector</h2>
+      <p>At the beginning of Generation One, your Sim is in exile. Roll 1d3 or click below to discover their past and where they've ended up:</p>
       <button onclick="rollWorld()">Roll World</button>
       <p id="worldResult"></p>
+
+      <h3>🎲 1 – Willow Creek: The Ashes of a Lie</h3>
+      <p>The fire was no accident. You smelled the gasoline before the flames took hold, but no one believed you. You disappeared into the swamp, building your life out of rot and ruin, far from the world that failed you.</p>
+
+      <h3>🎲 2 – Oasis Springs: The Exile’s Truth</h3>
+      <p>You were cut out and cast away. In the desert, blistered and alone, you found something better than forgiveness—freedom.</p>
+
+      <h3>🎲 3 – Newcrest: The Promise That Collapsed</h3>
+      <p>A failed government program left you with an empty lot and a head full of hope. You’re not building what they promised. You’re building what they couldn’t.</p>
     </section>
 
     <section>
-      <h2>🎡 Spin to Survive</h2>
-      <p>Click the button three times to spin for your Sim's survival skills:</p>
+      <h2>🏚️ Lot Setup</h2>
+      <ul>
+        <li>Start with <strong>§0</strong></li>
+        <li>Bulldozed residential lot</li>
+        <li>No furniture or structures</li>
+        <li>No cheats</li>
+      </ul>
+      <h3>🛠️ Required Lot Traits:</h3>
+      <ul>
+        <li>✅ <strong>Off the Grid</strong></li>
+        <li>🔸 1 Challenge Trait: Filthy, Grody, Quake Zone, Volcanic Activity, Creepy Crawlies</li>
+        <li>🔹 1 Helpful Trait: Homey, Sunny Aspect, Great Soil, Fast Internet (if earned)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>🎡 Spin-to-Survive: Triple Skill Challenge</h2>
+      <p>Click the button below <strong>three times</strong> to receive your skills. You must max all 3 and complete their aspirations.</p>
       <button onclick="spinSkill()">Spin Skill</button>
       <ul id="skillResults"></ul>
+
+      <table>
+        <tr><th>🎯 Skill</th><th>📜 Aspiration</th></tr>
+        <tr><td>Painting</td><td>Painter Extraordinaire</td></tr>
+        <tr><td>Writing</td><td>Bestselling Author</td></tr>
+        <tr><td>Programming</td><td>Computer Whiz</td></tr>
+        <tr><td>Music</td><td>Musical Genius</td></tr>
+        <tr><td>Handiness</td><td>Nerd Brain</td></tr>
+        <tr><td>Gardening</td><td>Freelance Botanist</td></tr>
+        <tr><td>Collecting Only</td><td>The Curator</td></tr>
+        <tr><td>Photography</td><td>Fabulously Wealthy</td></tr>
+        <tr><td>Charisma Hustling</td><td>Friend of the World or Fabulously Wealthy</td></tr>
+      </table>
     </section>
 
     <section>
-      <h2>🧾 Challenge Overview</h2>
-      <p>Your Sim must:</p>
+      <h2>⛔ Restrictions</h2>
       <ul>
-        <li>Max <strong>3 randomly assigned skills</strong></li>
-        <li>Complete the matching aspirations</li>
-        <li>Reach <strong>§150,000</strong> in lot value or savings</li>
-        <li>Build an off-the-grid home</li>
-        <li>Leave behind heirlooms and a message for the next generation</li>
+        <li>❌ No careers or freelance gigs</li>
+        <li>❌ No selling unrelated items</li>
+        <li>❌ No modern power/plumbing</li>
+        <li>✅ Use off-the-grid items: dew collectors, composting toilets, candles, solar panels (if earned)</li>
       </ul>
+    </section>
+
+    <section>
+      <h2>🎯 Generation Completion Goals</h2>
+      <ul>
+        <li>✅ Max 3 skills</li>
+        <li>✅ Complete 3 aspirations</li>
+        <li>✅ Reach <strong>§150,000</strong></li>
+        <li>✅ Build off-the-grid home</li>
+        <li>✅ Create a Legacy Vault with:</li>
+        <ul>
+          <li>🖼️ Portrait of Gen 1 & Gen 2</li>
+          <li>📦 3 heirlooms (1 per skill)</li>
+        </ul>
+        <li>✅ Heir must witness a trauma</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>🧳 Legacy Vault Tradition</h2>
+      <p>Create a hidden space (attic, basement, or locked room) for your legacy:</p>
+      <ul>
+        <li>Locked to Gen 2 only</li>
+        <li>Store heirlooms and family portrait</li>
+        <li>Add to it every generation</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>💬 Final Prompt: The Founder’s Message</h2>
+      <p>Your founder must leave behind a message in the Legacy Vault:</p>
+      <blockquote><em>“This is where we began. Whatever you build next, don’t forget where we came from.”</em></blockquote>
     </section>
   </main>
 
