@@ -5,21 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generation One – From Ashes</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="wheel.js" defer></script>
-  <script src="worldpicker.js" defer></script>
-  <script src="traits.js" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((box, index) => {
-      const key = `gen1-check-${index}`;
-      box.checked = localStorage.getItem(key) === 'true';
-      box.addEventListener('change', () => {
-        localStorage.setItem(key, box.checked);
-      });
-    });
-  });
-</script>
+<script src="wheel.js" defer></script>
+<script src="worldpicker.js" defer></script>
+<script src="traits.js" defer></script>
+
 </head>
 <body>
   <header>
@@ -142,11 +131,56 @@
   <audio id="rollSound" src="roll.mp3" preload="auto"></audio>
 
 <script>
+  // Helper: Populate dropdown with given trait options
+  function populateTraitDropdown(select, options) {
+    select.innerHTML = "";
+    options.forEach(trait => {
+      const opt = document.createElement("option");
+      opt.value = trait;
+      opt.textContent = trait;
+      select.appendChild(opt);
+    });
+  }
+
+  // DOM Init: Single listener for all setup
   document.addEventListener("DOMContentLoaded", () => {
+    // Restore checkboxes from localStorage
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((box, index) => {
+      const key = `gen1-check-${index}`;
+      box.checked = localStorage.getItem(key) === 'true';
+      box.addEventListener('change', () => {
+        localStorage.setItem(key, box.checked);
+      });
+    });
+
+    // Restore Sim name
+    const nameInput = document.getElementById("simName");
+    nameInput.value = localStorage.getItem("simName") || "";
+    nameInput.addEventListener("input", e => {
+      localStorage.setItem("simName", e.target.value);
+    });
+
+    // Roll traits button
     const rollButton = document.getElementById("rollAllTraits");
     if (rollButton) {
       rollButton.addEventListener("click", rollAllTraitsFromSkills);
     }
+
+    // Populate dropdowns if stored
+    ["trait1", "trait2", "trait3"].forEach(id => {
+  const select = document.getElementById(id);
+  const savedValue = localStorage.getItem(id);
+
+  if (select && savedValue) {
+    if (![...select.options].some(opt => opt.value === savedValue)) {
+      const opt = document.createElement("option");
+      opt.value = savedValue;
+      opt.textContent = savedValue;
+      select.appendChild(opt);
+    }
+    select.value = savedValue;
+  }
+});
   });
 </script>
-
