@@ -182,7 +182,7 @@ function updateSkillLinkedTrait(skillNames) {
   const relatedTraits = new Set();
 
   skillNames.forEach(skill => {
-    const baseSkill = skill.split("–")[0].trim().replace(/[🎨✍️💻🎸🔧🌿🪙📷🗣️]/g, "").trim();
+    const baseSkill = skill.split("–")[0].trim().replace(/[🎨✍️💻🎸🔧🌿💎📷🗣️]/g, "").trim();
     (skillToTraits[baseSkill] || []).forEach(trait => relatedTraits.add(trait));
   });
 
