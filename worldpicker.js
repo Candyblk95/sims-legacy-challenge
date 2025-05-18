@@ -47,12 +47,13 @@ function rollWorld() {
   lastIndex = index;
 
   const resultBox = document.getElementById("worldResult");
-  const rollSound = document.getElementById("rollSound");
 
-  // Play roll sound
-  if (rollSound) {
-    rollSound.currentTime = 0;
-    rollSound.play();
+  // Optional: play one typeSound "click" to kick things off
+  const typeSound = document.getElementById("typeSound");
+  if (typeSound) {
+    const clone = typeSound.cloneNode();
+    clone.volume = 0.4;
+    clone.play();
   }
 
   // Fade-in class reset
@@ -63,6 +64,7 @@ function rollWorld() {
   // Start typing animation
   typewriterEffect(results[index], resultBox, 20);
 }
+
 
 
 
