@@ -5,20 +5,19 @@ const skills = [
   "🎸 Music – Musical Genius",
   "🔧 Handiness – Nerd Brain",
   "🌿 Gardening – Freelance Botanist",
-  "💎 Collecting – The Curator",
+  "🪙 Collecting – The Curator",
   "📷 Photography – Fabulously Wealthy",
   "🗣️ Charisma Hustling – Friend of the World (or Wealthy)"
 ];
 
 const usedSkills = new Set();
 
-function typeSkillLine(text, container, speed = 25) {
-  const li = document.createElement("li");
-  container.appendChild(li);
-
+function typewriterEffect(text, element, speed = 25) {
+  element.textContent = "";
   let i = 0;
+
   const interval = setInterval(() => {
-    li.textContent += text.charAt(i);
+    element.textContent += text.charAt(i);
 
     if (i % 2 === 0 && text.charAt(i) !== " ") {
       const typeSound = document.getElementById("typeSound");
@@ -39,12 +38,20 @@ function typeSkillLine(text, container, speed = 25) {
 function spinSkill() {
   if (usedSkills.size >= 3) return;
 
-  const indexPool = skills.map((_, i) => i).filter(i => !usedSkills.has(i));
-  const index = indexPool[Math.floor(Math.random() * indexPool.length)];
+  const availableIndexes = skills
+    .map((_, i) => i)
+    .filter(i => !usedSkills.has(i));
+
+  const index = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
   usedSkills.add(index);
 
   const result = skills[index];
+
   const list = document.getElementById("skillResults");
+
+  // Create new list item
+  const li = document.createElement("li");
+  list.appendChild(li);
 
   // Play dice sound
   const rollSound = document.getElementById("rollSound");
@@ -53,6 +60,6 @@ function spinSkill() {
     rollSound.play();
   }
 
-  // Animate typing the skill
-  typeSkillLine(result, list);
+  // Type out the result
+  typewriterEffect(result, li, 25);
 }
