@@ -15,5 +15,13 @@ function rollWorld() {
   } while (index === lastIndex);
 
   lastIndex = index;
-  document.getElementById("worldResult").textContent = results[index];
+
+  const resultBox = document.getElementById("worldResult");
+  resultBox.textContent = results[index];
+
+  // Reset animation
+  resultBox.classList.remove("fade-in");
+  void resultBox.offsetWidth; // Trigger reflow
+  resultBox.classList.add("fade-in");
 }
+
