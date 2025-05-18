@@ -49,7 +49,7 @@ function rollWorld() {
   const resultBox = document.getElementById("worldResult");
 
   // Optional: play one typeSound "click" to kick things off
-  const typeSound = document.getElementById("typeSound");
+  const typeSound = document.getElementById("rollSound");
   if (typeSound) {
     const clone = typeSound.cloneNode();
     clone.volume = 0.4;
