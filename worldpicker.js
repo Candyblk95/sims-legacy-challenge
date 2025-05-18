@@ -48,22 +48,22 @@ function rollWorld() {
 
   const resultBox = document.getElementById("worldResult");
 
-  // Optional: play one typeSound "click" to kick things off
-  const typeSound = document.getElementById("rollSound");
-  if (typeSound) {
-    const clone = typeSound.cloneNode();
-    clone.volume = 0.4;
-    clone.play();
+  // ✅ Play the dice roll sound
+  const rollSound = document.getElementById("rollSound");
+  if (rollSound) {
+    rollSound.currentTime = 0;
+    rollSound.play();
   }
 
-  // Fade-in class reset
+  // Fade-in effect
   resultBox.classList.remove("fade-in");
   void resultBox.offsetWidth;
   resultBox.classList.add("fade-in");
 
-  // Start typing animation
+  // ⌨️ Typing effect (with no typewriter sound)
   typewriterEffect(results[index], resultBox, 20);
 }
+
 
 
 
