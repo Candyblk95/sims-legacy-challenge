@@ -39,56 +39,39 @@ const traitSkillMap = {
   "Snob": ["Photography", "Collecting", "Writing"]
 };
 
-function rollSkillBasedTraits(skills, count = 3) {
-  const pool = [];
-
-  skills.forEach(skill => {
-    const baseSkill = skill.replace(/[^\w\s]/gi, "").trim();
-    for (const [trait, linkedSkills] of Object.entries(traitSkillMap)) {
-      if (linkedSkills.includes(baseSkill)) {
-        pool.push(trait);
-      }
-    }
-  });
-
-  const uniqueTraits = [...new Set(pool)];
-  const rolled = [];
-  while (rolled.length < count && uniqueTraits.length > 0) {
-    const i = Math.floor(Math.random() * uniqueTraits.length);
-    rolled.push(uniqueTraits[i]);
-    uniqueTraits.splice(i, 1);
-  }
-
-  return rolled;
+function getTraitsForSkill(skillName) {
+  const baseSkill = skillName.replace(/[^\w\s]/gi, "").trim();
+  return Object.entries(traitSkillMap)
+    .filter(([_, skills]) => skills.includes(baseSkill))
+    .map(([trait]) => trait);
 }
 
-function applyRolledSkillTraits(traits) {
-  const fields = ["trait1", "trait2", "trait3"];
-  fields.forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (el && traits[i]) {
-      el.value = traits[i];
-      localStorage.setItem(id, traits[i]);
-    }
-  });
+function rollTraitFromList(traits) {
+  if (!traits.length) return "";
+  const index = Math.floor(Math.random() * traits.length);
+  return traits[index];
 }
 
 function rollAllTraitsFromSkills() {
   const rolledSkills = window.rolledSkills || [];
-  if (rolledSkills.length < 1) {
-    console.warn("❗ No rolled skills found. Roll skills first.");
+  if (rolledSkills.length < 3) {
+    console.warn("⚠️ You must roll 3 skills first!");
     return;
   }
 
-  const traits = rollSkillBasedTraits(rolledSkills, 3);
+  const traitIds = ["trait1", "trait2", "trait3"];
 
-  // 🔧 Populate selects with full trait list (ensures options exist before assigning values)
-  const fields = ["trait1", "trait2", "trait3"];
-  fields.forEach(id => {
-    const select = document.getElementById(id);
-    if (select) populateTraitDropdown(select, Object.keys(traitSkillMap));
+  rolledSkills.forEach((skill, i) => {
+    const dropdown = document.getElementById(traitIds[i]);
+    const traitOptions = getTraitsForSkill(skill);
+    const chosenTrait = rollTraitFromList(traitOptions);
+
+    if (dropdown) {
+      populateTraitDropdown(dropdown, traitOptions);
+      dropdown.value = chosenTrait;
+      localStorage.setItem(traitIds[i], chosenTrait);
+    }
   });
-
-  applyRolledSkillTraits(traits);
 }
+
 
