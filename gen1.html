@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="style.css" />
   <script src="wheel.js" defer></script>
   <script src="worldpicker.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((box, index) => {
+      const key = `gen1-check-${index}`;
+      box.checked = localStorage.getItem(key) === 'true';
+      box.addEventListener('change', () => {
+        localStorage.setItem(key, box.checked);
+      });
+    });
+  });
+</script>
 </head>
 <body>
   <header>
@@ -82,21 +94,22 @@
     </section>
 
     <section>
-      <h2>🎯 Generation Completion Goals</h2>
+  <h2>🎯 Generation Completion Goals</h2>
+  <ul>
+    <li><label><input type="checkbox"> Max 3 skills</label></li>
+    <li><label><input type="checkbox"> Complete 3 aspirations</label></li>
+    <li><label><input type="checkbox"> Reach <strong>§150,000</strong> value</label></li>
+    <li><label><input type="checkbox"> Build an off-the-grid home</label></li>
+    <li><label><input type="checkbox"> Create a Legacy Vault with:</label>
       <ul>
-        <li>✅ Max 3 skills</li>
-        <li>✅ Complete 3 aspirations</li>
-        <li>✅ Reach <strong>§150,000</strong> value</li>
-        <li>✅ Build an off-the-grid home</li>
-        <li>✅ Create a Legacy Vault with:</li>
-        <ul>
-          <li>🖼️ Family portrait of Gen 1 & Gen 2</li>
-          <li>📦 3 skill-based heirlooms</li>
-        </ul>
-        <li>✅ Have or adopt an heir</li>
-        <li>✅ Heir must witness trauma (death, fire, betrayal)</li>
+        <li><label><input type="checkbox"> 🖼️ Family portrait of Gen 1 & Gen 2</label></li>
+        <li><label><input type="checkbox"> 📦 3 skill-based heirlooms</label></li>
       </ul>
-    </section>
+    </li>
+    <li><label><input type="checkbox"> Have or adopt an heir</label></li>
+    <li><label><input type="checkbox"> Heir must witness trauma (death, fire, betrayal)</label></li>
+  </ul>
+</section>
 
     <section>
       <h2>🧳 Legacy Vault Tradition</h2>
