@@ -251,52 +251,44 @@ function generateSimIDCard() {
     const skills = window.rolledSkills || ["-", "-", "-"];
 
     function drawTextContent() {
-      ctx.textAlign = "left";
-      ctx.fillStyle = "#000";
+  ctx.textAlign = "left";
+  ctx.fillStyle = "#000";
 
-      // 🟣 Name
-      ctx.font = "bold 52px Arial";
-      ctx.fillStyle = "#f00081";
-      ctx.fillText(name, 440, 130);
+  // ✏️ Drop all text down ~70px for breathing room
+  const baseY = 200;
+  const lineHeight = 50;
 
-      // 📍 World
-      ctx.font = "bold 26px Arial";
-      ctx.fillStyle = "#000";
-      ctx.fillText("📍 Location : " + world, 440, 180);
+  // Name
+  ctx.font = "bold 52px Arial";
+  ctx.fillStyle = "#f00081";
+  ctx.fillText(name, 440, baseY);
 
-      // 🧬 Traits
-      ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, 440, 230);
+  // World
+  ctx.font = "bold 26px Arial";
+  ctx.fillStyle = "#000";
+  ctx.fillText("📍 Location : " + world, 440, baseY + lineHeight);
 
-      // 🎓 Skills
-      ctx.fillText("🎓 Skills : " + skills.join(", "), 440, 280);
+  // Traits
+  ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, 440, baseY + lineHeight * 2);
 
-      // 🎨 Palette
-      ctx.font = "20px Arial";
-      ctx.fillText("🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen", 290, 340);
+  // Skills
+  ctx.fillText("🎓 Skills : " + skills.join(", "), 440, baseY + lineHeight * 3);
 
-      // 🛋️ Style
-      ctx.fillText("🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude", 290, 375);
-    }
+  // Color Palette
+  ctx.font = "20px Arial";
+  ctx.fillText(
+    "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
+    290,
+    baseY + lineHeight * 4.4
+  );
 
-    if (simImageData) {
-      const simPic = new Image();
-      simPic.onload = () => {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(210, 310, 160, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.clip();
-
-        ctx.drawImage(simPic, 60, 150, 300, 320); // tighter positioning
-        ctx.restore();
-
-        drawTextContent();
-      };
-      simPic.src = simImageData;
-    } else {
-      drawTextContent();
-    }
-  };
+  // Interior Style
+  ctx.fillText(
+    "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
+    290,
+    baseY + lineHeight * 5
+  );
 }
+
 </script>
 
