@@ -1,96 +1,77 @@
-const baseGameTraits = [
-  "Active", "Cheerful", "Creative", "Genius", "Gloomy", "Goofball", "Hot-Headed", "Romantic", "Self-Assured", "Unflirty",
-  "Bookworm", "Foodie", "Geek", "Glutton", "Lazy", "Materialistic", "Music Lover", "Neat", "Perfectionist", "Slob", "Snob",
-  "Art Lover", "Ambitious", "Childish", "Clumsy", "Dance Machine", "Loner", "Mean", "Outgoing"
-];
-
-const skillToTraits = {
-  "Painting": ["Creative", "Art Lover"],
-  "Writing": ["Bookworm", "Loner"],
-  "Programming": ["Geek", "Genius"],
-  "Music": ["Music Lover", "Creative"],
-  "Handiness": ["Perfectionist", "Clumsy"],
-  "Gardening": ["Loner", "Gloomy"],
-  "Collecting": ["Genius", "Ambitious"],
-  "Photography": ["Self-Assured", "Snob"],
-  "Charisma Hustling": ["Outgoing", "Cheerful"]
+// Expanded trait associations: each trait is now linked to relevant skills
+const traitSkillMap = {
+  "Creative": ["Painting", "Music", "Photography"],
+  "Art Lover": ["Painting", "Photography"],
+  "Bookworm": ["Writing", "Programming"],
+  "Loner": ["Writing", "Gardening", "Handiness"],
+  "Geek": ["Programming", "Collecting", "Photography"],
+  "Genius": ["Programming", "Collecting"],
+  "Music Lover": ["Music", "Charisma Hustling"],
+  "Clumsy": ["Handiness"],
+  "Perfectionist": ["Painting", "Handiness"],
+  "Self-Assured": ["Photography", "Charisma Hustling"],
+  "Outgoing": ["Charisma Hustling"],
+  "Cheerful": ["Charisma Hustling"],
+  "Goofball": ["Painting", "Charisma Hustling"],
+  "Hot-Headed": ["Programming", "Writing"],
+  "Gloomy": ["Writing", "Gardening"],
+  "Loves Outdoors": ["Gardening", "Painting", "Photography"],
+  "Snob": ["Photography", "Writing"],
+  "Ambitious": ["Collecting", "Charisma Hustling"],
+  "Lazy": ["Writing"],
+  "Neat": ["Handiness", "Gardening"],
+  "Materialistic": ["Photography"]
 };
 
-// Populate a dropdown with a list of trait options
-function populateTraitDropdown(select, options) {
-  select.innerHTML = "";
-  options.forEach(trait => {
-    const opt = document.createElement("option");
-    opt.value = trait;
-    opt.textContent = trait;
-    select.appendChild(opt);
-  });
-}
+// Get all unique traits linked to at least one skill
+const allSkillTraits = Object.keys(traitSkillMap);
 
-// Randomly select a trait from the base list and assign to a dropdown
-function rollTrait(selectId) {
-  const trait = baseGameTraits[Math.floor(Math.random() * baseGameTraits.length)];
-  const select = document.getElementById(selectId);
-  if (select) {
-    select.value = trait;
-    localStorage.setItem(selectId, trait);
-  }
-}
-
-// Called by skill spinner to update trait 3 options based on skill links
-function updateSkillLinkedTrait(skillNames) {
-  const trait3 = document.getElementById("trait3");
-  const relatedTraits = new Set();
-
-  skillNames.forEach(skill => {
-    const baseSkill = skill
+function rollSkillBasedTraits(skills, count = 3) {
+  const pool = [];
+  skills.forEach(skill => {
+    const name = skill
       .split("–")[0]
       .replace(/[🎨✍️💻🎸🔧🌿🪙📷🗣️]/g, "")
       .trim();
 
-    (skillToTraits[baseSkill] || []).forEach(trait => relatedTraits.add(trait));
+    for (const [trait, mappedSkills] of Object.entries(traitSkillMap)) {
+      if (mappedSkills.includes(name)) {
+        pool.push(trait);
+      }
+    }
   });
 
-  populateTraitDropdown(trait3, Array.from(relatedTraits));
+  const unique = [...new Set(pool)];
+  const results = [];
+  while (results.length < count && unique.length > 0) {
+    const i = Math.floor(Math.random() * unique.length);
+    results.push(unique[i]);
+    unique.splice(i, 1);
+  }
+  return results;
 }
 
-// Roll one of the options currently shown in the Trait 3 dropdown
-function rollSkillTrait() {
-  const trait3Select = document.getElementById("trait3");
-  if (!trait3Select || trait3Select.options.length === 0) return;
-
-  const options = Array.from(trait3Select.options);
-  const random = options[Math.floor(Math.random() * options.length)];
-
-  trait3Select.value = random.value;
-  localStorage.setItem("trait3", random.value);
+// Update dropdowns with rolled traits
+function applyRolledSkillTraits(traits) {
+  const fields = ["trait1", "trait2", "trait3"];
+  fields.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && traits[i]) {
+      el.value = traits[i];
+      localStorage.setItem(id, traits[i]);
+    }
+  });
 }
 
-// Initial setup
+function rollAllTraitsFromSkills() {
+  const skillList = Array.from(document.querySelectorAll("#skillResults li"))
+    .map(el => el.textContent.trim());
+  const rolledTraits = rollSkillBasedTraits(skillList);
+  applyRolledSkillTraits(rolledTraits);
+}
+
+// Add event
 document.addEventListener("DOMContentLoaded", () => {
-  // Populate Trait 1 & Trait 2 with all base traits
-  ["trait1", "trait2"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) populateTraitDropdown(el, baseGameTraits);
-  });
-
-  // Load saved values
-  document.getElementById("simName").value = localStorage.getItem("simName") || "";
-
-  ["trait1", "trait2", "trait3"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el && localStorage.getItem(id)) {
-      el.value = localStorage.getItem(id);
-    }
-
-    if (el) {
-      el.addEventListener("change", () => {
-        localStorage.setItem(id, el.value);
-      });
-    }
-  });
-
-  document.getElementById("simName").addEventListener("input", (e) => {
-    localStorage.setItem("simName", e.target.value);
-  });
+  const button = document.getElementById("rollAllTraits");
+  if (button) button.addEventListener("click", rollAllTraitsFromSkills);
 });
