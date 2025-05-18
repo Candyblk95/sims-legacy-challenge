@@ -81,12 +81,14 @@ function rollAllTraitsFromSkills() {
   }
 
   const traits = rollSkillBasedTraits(rolledSkills, 3);
+
+  // 🔧 Populate selects with full trait list (ensures options exist before assigning values)
+  const fields = ["trait1", "trait2", "trait3"];
+  fields.forEach(id => {
+    const select = document.getElementById(id);
+    if (select) populateTraitDropdown(select, Object.keys(traitSkillMap));
+  });
+
   applyRolledSkillTraits(traits);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const rollButton = document.getElementById("rollAllTraits");
-  if (rollButton) {
-    rollButton.addEventListener("click", rollAllTraitsFromSkills);
-  }
-});
