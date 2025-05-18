@@ -17,11 +17,21 @@ function rollWorld() {
   lastIndex = index;
 
   const resultBox = document.getElementById("worldResult");
-  resultBox.textContent = results[index];
+  const audio = document.getElementById("rollSound");
+
+  // Play sound
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
 
   // Reset animation
   resultBox.classList.remove("fade-in");
   void resultBox.offsetWidth; // Trigger reflow
   resultBox.classList.add("fade-in");
+
+  // Display text
+  resultBox.textContent = results[index];
 }
+
 
