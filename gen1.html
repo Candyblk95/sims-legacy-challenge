@@ -68,7 +68,27 @@
   <ul id="skillResults" style="margin-top: 10px;"></ul>
 </section>
 
-    <section>
+    
+<section>
+  <h2>🧍 Create Your Sim</h2>
+
+  <label for="simName">Name Your Founder:</label><br>
+  <input type="text" id="simName" placeholder="e.g., Elara Moss" /><br><br>
+
+  <label>🎲 Trait 1:</label>
+  <button onclick="rollTrait('trait1')">Roll Trait 1</button><br>
+  <select id="trait1"></select><br><br>
+
+  <label>🎲 Trait 2:</label>
+  <button onclick="rollTrait('trait2')">Roll Trait 2</button><br>
+  <select id="trait2"></select><br><br>
+
+  <label>🎲 Trait 3 (based on skills):</label>
+  <button onclick="rollSkillTrait()">Roll Trait 3</button><br>
+  <select id="trait3"></select><br><br>
+</section>
+
+<section>
       <h2>⛔ Challenge Restrictions</h2>
       <ul>
         <li>❌ No careers or freelance gigs</li>
@@ -129,9 +149,7 @@
 <label>🎲 Trait 3 (based on skills):</label>
   <button onclick="rollSkillTrait()">Roll Trait 3</button><br>
   <select id="trait3"></select><br><br>
-<label>🎨 Trait 3 (based on skills):</label><br>
-<select id="trait3"></select><br>
-<button onclick="rollSkillTrait()">Roll Trait 3</button><br><br>
+
 </section>
 </main>
     <!-- Dice roll sound -->
