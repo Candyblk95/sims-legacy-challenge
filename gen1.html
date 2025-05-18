@@ -47,22 +47,6 @@
 </section>
 
     <section>
-      <h2>🏚️ Lot Setup</h2>
-      <ul>
-        <li>Start with <strong>§0</strong></li>
-        <li>Bulldozed residential lot</li>
-        <li>No furniture or structures</li>
-        <li>No cheats</li>
-      </ul>
-      <h3>🛠️ Required Lot Traits:</h3>
-      <ul>
-        <li>✅ <strong>Off the Grid</strong> (mandatory)</li>
-        <li>🔸 1 Challenge Trait: Filthy, Grody, Quake Zone, Volcanic Activity (cheat), Creepy Crawlies (mod)</li>
-        <li>🔹 1 Helpful Trait: Homey, Sunny Aspect, Great Soil, Fast Internet (only if earned)</li>
-      </ul>
-    </section>
-
-    <section>
   <h2>🎡 Spin-to-Survive: The Triple Skill Challenge</h2>
   <p>Click the button <strong>three times</strong> to receive your Sim’s random skills:</p>
   <button onclick="spinSkill()">Spin Skill</button>
@@ -87,6 +71,22 @@
 
   <button id="rollAllTraits">Roll Traits</button>
 </section>
+
+    <section>
+      <h2>🏚️ Lot Setup</h2>
+      <ul>
+        <li>Start with <strong>§0</strong></li>
+        <li>Bulldozed residential lot</li>
+        <li>No furniture or structures</li>
+        <li>No cheats</li>
+      </ul>
+      <h3>🛠️ Required Lot Traits:</h3>
+      <ul>
+        <li>✅ <strong>Off the Grid</strong> (mandatory)</li>
+        <li>🔸 1 Challenge Trait: Filthy, Grody, Quake Zone, Volcanic Activity (cheat), Creepy Crawlies (mod)</li>
+        <li>🔹 1 Helpful Trait: Homey, Sunny Aspect, Great Soil, Fast Internet (only if earned)</li>
+      </ul>
+    </section>
 
 
       <section>
@@ -141,38 +141,12 @@
 
   <audio id="rollSound" src="roll.mp3" preload="auto"></audio>
 
-  <script>
-    const baseGameTraits = [
-      "Active", "Cheerful", "Creative", "Genius", "Gloomy", "Goofball", "Hot-Headed", "Romantic", "Self-Assured", "Unflirty",
-      "Bookworm", "Foodie", "Geek", "Glutton", "Lazy", "Materialistic", "Music Lover", "Neat", "Perfectionist", "Slob", "Snob",
-      "Art Lover", "Ambitious", "Childish", "Clumsy", "Dance Machine", "Loner", "Mean", "Outgoing"
-    ];
-
-    const skillToTraits = {
-      "Painting": ["Creative", "Art Lover"],
-      "Writing": ["Bookworm", "Loner"],
-      "Programming": ["Geek", "Genius"],
-      "Music": ["Music Lover", "Creative"],
-      "Handiness": ["Perfectionist", "Clumsy"],
-      "Gardening": ["Loner", "Gloomy"],
-      "Collecting": ["Genius", "Ambitious"],
-      "Photography": ["Self-Assured", "Snob"],
-      "Charisma Hustling": ["Outgoing", "Cheerful"]
-    };
-
-    function populateTraitDropdown(select, options) {
-      select.innerHTML = "";
-      options.forEach(trait => {
-        const opt = document.createElement("option");
-        opt.value = trait;
-        opt.textContent = trait;
-        select.appendChild(opt);
-      });
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const rollButton = document.getElementById("rollAllTraits");
+    if (rollButton) {
+      rollButton.addEventListener("click", rollAllTraitsFromSkills);
     }
+  });
+</script>
 
-    function rollAllTraitsFromSkills() {
-      const skills = Array.from(document.querySelectorAll('#skillResults li')).map(li => li.textContent);
-      const traitPool = new Set();
-
-      skills.forEach(skill => {
-        const base = skill.split(" –")[0].trim().replace(/[^
