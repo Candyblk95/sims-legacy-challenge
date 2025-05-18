@@ -233,7 +233,7 @@ function generateSimIDCard() {
   canvas.height = 639;
 
   const bg = new Image();
-  bg.src = "SimID.png"; // Make sure this is placed correctly in the repo
+  bg.src = "SimID.png"; // Make sure this is correctly referenced
 
   bg.onload = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -253,38 +253,39 @@ function generateSimIDCard() {
       ctx.textAlign = "left";
       ctx.fillStyle = "#000";
 
-      const baseY = 200;
+      // Base values for left-shifted layout
+      const textX = 400;      // ⬅️ shift everything left
+      const baseY = 160;      // ⬇️ lifted slightly for better spacing
       const lineHeight = 50;
 
       // Name
       ctx.font = "bold 52px Arial";
       ctx.fillStyle = "#f00081";
-      ctx.fillText(name, 440, baseY);
+      ctx.fillText(name, textX, baseY);
 
       // World
       ctx.font = "bold 26px Arial";
       ctx.fillStyle = "#000";
-      ctx.fillText("📍 Location : " + world, 440, baseY + lineHeight);
+      ctx.fillText("📍 Location : " + world, textX, baseY + lineHeight);
 
       // Traits
-      ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, 440, baseY + lineHeight * 2);
+      ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, textX, baseY + lineHeight * 2);
 
       // Skills
-      ctx.fillText("🎓 Skills : " + skills.join(", "), 440, baseY + lineHeight * 3);
+      ctx.fillText("🎓 Skills : " + skills.join(", "), textX, baseY + lineHeight * 3);
 
-      // Palette
+      // Move palette + style lower
       ctx.font = "20px Arial";
       ctx.fillText(
         "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
-        290,
-        baseY + lineHeight * 4.4
+        80,
+        baseY + lineHeight * 6
       );
 
-      // Style
       ctx.fillText(
         "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
-        290,
-        baseY + lineHeight * 5
+        80,
+        baseY + lineHeight * 6.9
       );
     }
 
@@ -293,11 +294,11 @@ function generateSimIDCard() {
       simPic.onload = () => {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(230, 320, 150, 0, Math.PI * 2, true);
+        ctx.arc(210, 300, 150, 0, Math.PI * 2, true); // Circle center
         ctx.closePath();
         ctx.clip();
 
-        ctx.drawImage(simPic, 80, 170, 300, 300);
+        ctx.drawImage(simPic, 60, 150, 300, 300); // Profile picture position
         ctx.restore();
 
         drawTextContent();
@@ -309,4 +310,5 @@ function generateSimIDCard() {
   };
 }
 </script>
+
 
