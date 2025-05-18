@@ -5,7 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generation One – From Ashes</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="wheel.js" defer></script>
+  <script src="wheel.js" defer>
+
+function typewriterEffect(text, element, speed = 20) {
+  element.textContent = "";
+  let i = 0;
+
+  const interval = setInterval(() => {
+    element.textContent += text.charAt(i);
+
+    // Play typing sound every 2 characters (skip spaces)
+    if (i % 2 === 0 && text.charAt(i) !== " ") {
+      const typeSound = document.getElementById("typeSound");
+      if (typeSound) {
+        const clone = typeSound.cloneNode();
+        clone.volume = 0.4;
+        clone.play();
+      }
+    }
+
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+    }
+  }, speed);
+}
+</script>
   <script src="worldpicker.js" defer></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
