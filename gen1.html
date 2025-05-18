@@ -7,214 +7,73 @@
   <link rel="stylesheet" href="style.css" />
   <script src="wheel.js" defer></script>
   <script src="worldpicker.js" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((box, index) => {
-      const key = `gen1-check-${index}`;
-      box.checked = localStorage.getItem(key) === 'true';
-      box.addEventListener('change', () => {
-        localStorage.setItem(key, box.checked);
+  <script src="traits.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach((box, index) => {
+        const key = `gen1-check-${index}`;
+        box.checked = localStorage.getItem(key) === 'true';
+        box.addEventListener('change', () => {
+          localStorage.setItem(key, box.checked);
+        });
       });
     });
-  });
-</script>
+  </script>
 </head>
 <body>
   <header>
     <h1>🌱 Generation One – From Ashes</h1>
-    <nav>
-      <a href="index.html">Home</a>
-    </nav>
+    <nav><a href="index.html">Home</a></nav>
   </header>
   <div class="content-wrapper">
     <main>
-    <section>
-      <h2>📦 Gen One Overview</h2>
-      <ul>
-        <li><strong>🎯 Pack Focus:</strong> Base Game Only</li>
-        <li><strong>🔥 Theme:</strong> Off-the-grid survival, emotional scars, rebuilding legacy</li>
-        <li><strong>🎨 Color Palette:</strong> Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen</li>
-        <li><strong>🛋️ Interior Style:</strong> Rustic Minimalism · Wasteland Survival · Handcrafted Solitude</li>
-      </ul>
-    </section>
-    <section>
-  <h2>🎲 World & Backstory Selector</h2>
-  <p>Click to randomly reveal your Sim’s origin story and survival setting:</p>
-  <button onclick="rollWorld()">Roll World</button>
-  <pre id="worldResult" style="white-space: pre-wrap; background: #1e1e1e; padding: 15px; border-left: 4px solid #F00081; border-radius: 6px; margin-top: 15px;"></pre>
-</section>
-
-    <section>
-      <h2>🏚️ Lot Setup</h2>
-      <ul>
-        <li>Start with <strong>§0</strong></li>
-        <li>Bulldozed residential lot</li>
-        <li>No furniture or structures</li>
-        <li>No cheats</li>
-      </ul>
-      <h3>🛠️ Required Lot Traits:</h3>
-      <ul>
-        <li>✅ <strong>Off the Grid</strong> (mandatory)</li>
-        <li>🔸 1 Challenge Trait: Filthy, Grody, Quake Zone, Volcanic Activity (cheat), Creepy Crawlies (mod)</li>
-        <li>🔹 1 Helpful Trait: Homey, Sunny Aspect, Great Soil, Fast Internet (only if earned)</li>
-      </ul>
-    </section>
-
-    <section>
-  <h2>🎡 Spin-to-Survive: The Triple Skill Challenge</h2>
-  <p>Click the button <strong>three times</strong> to receive your Sim’s random skills:</p>
-  <button onclick="spinSkill()">Spin Skill</button>
-  <ul id="skillResults" style="margin-top: 10px;"></ul>
-</section>
-
-    <section>
-      <h2>⛔ Challenge Restrictions</h2>
-      <ul>
-        <li>❌ No careers or freelance gigs</li>
-        <li>❌ No selling unrelated items</li>
-        <li>❌ No modern power/plumbing</li>
-        <li>✅ Use off-the-grid Base Game items: dew collectors, composting toilets, candles, solar panels (if earned)</li>
-      </ul>
-    </section>
-
-    <section>
-  <h2>🎯 Generation Completion Goals</h2>
-  <ul>
-    <li><label><input type="checkbox"> Max 3 skills</label></li>
-    <li><label><input type="checkbox"> Complete 3 aspirations</label></li>
-    <li><label><input type="checkbox"> Reach <strong>§150,000</strong> value</label></li>
-    <li><label><input type="checkbox"> Build an off-the-grid home</label></li>
-    <li><label><input type="checkbox"> Create a Legacy Vault with:</label>
-      <ul>
-        <li><label><input type="checkbox"> 🖼️ Family portrait of Gen 1 & Gen 2</label></li>
-        <li><label><input type="checkbox"> 📦 3 skill-based heirlooms</label></li>
-      </ul>
-    </li>
-    <li><label><input type="checkbox"> Have or adopt an heir</label></li>
-    <li><label><input type="checkbox"> Heir must witness trauma (death, fire, betrayal)</label></li>
-  </ul>
-</section>
-
-    <section>
-      <h2>🧳 Legacy Vault Tradition</h2>
-      <ul>
-        <li>Create a hidden room (attic, basement, or vault)</li>
-        <li>Lock it for Gen 2 only</li>
-        <li>Store heirlooms and the family portrait</li>
-        <li>Pass this space through generations</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>💬 Final Prompt: The Founder’s Message</h2>
-      <p>Your Sim must leave a legacy message:</p>
-      <blockquote><em>“This is where we began. Whatever you build next, don’t forget where we came from.”</em></blockquote>
-    </section>
       <section>
-  <h2>🧍 Create Your Sim</h2>
+        <h2>🧍‍♀️ Create Your Sim</h2>
+        <div class="sim-id-card">
+          <label for="simName">🪪 Name:</label>
+          <input type="text" id="simName" placeholder="Enter your founder's name" />
 
-  <label for="simName">Name Your Founder:</label><br>
-  <input type="text" id="simName" placeholder="e.g., Elara Moss" /><br><br>
+          <label for="simWorld">📍 Address:</label>
+          <input type="text" id="simWorld" placeholder="Your world will appear here" readonly />
 
-  <label>🎲 Trait 1:</label>
-  <button onclick="rollTrait('trait1')">Roll Trait 1</button><br>
-  <select id="trait1"></select><br><br>
+          <label for="trait1">🎲 Trait 1:</label>
+          <select id="trait1"></select>
 
-  <label>🎲 Trait 2:</label>
-  <button onclick="rollTrait('trait2')">Roll Trait 2</button><br>
-  <select id="trait2"></select><br><br>
+          <label for="trait2">🎲 Trait 2:</label>
+          <select id="trait2"></select>
 
-  
-<label>🎲 Trait 3 (based on skills):</label>
-  <button onclick="rollSkillTrait()">Roll Trait 3</button><br>
-  <select id="trait3"></select><br><br>
-<label>🎨 Trait 3 (based on skills):</label><br>
-<select id="trait3"></select><br>
-<button onclick="rollSkillTrait()">Roll Trait 3</button><br><br>
-</section>
-</main>
-    <!-- Dice roll sound -->
-    <!-- Removed typewriter sound since we're only using dice sound -->
-<audio id="rollSound" src="roll.mp3" preload="auto"></audio>
+          <label for="trait3">🎲 Trait 3 (from skills):</label>
+          <select id="trait3"></select>
+
+          <button onclick="rollAllTraits()">🎲 Roll All Traits from Skills</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>🎲 World & Backstory Selector</h2>
+        <p>Click to randomly reveal your Sim’s origin story and survival setting:</p>
+        <button onclick="rollWorld()">Roll World</button>
+        <pre id="worldResult" style="white-space: pre-wrap; background: #1e1e1e; padding: 15px; border-left: 4px solid #F00081; border-radius: 6px; margin-top: 15px;"></pre>
+      </section>
+
+      <section>
+        <h2>🎡 Spin-to-Survive: The Triple Skill Challenge</h2>
+        <p>Click the button <strong>three times</strong> to receive your Sim’s random skills:</p>
+        <button onclick="spinSkill()">Spin Skill</button>
+        <ul id="skillResults" style="margin-top: 10px;"></ul>
+      </section>
+
+      <section>
+        <h2>💬 Final Prompt: The Founder’s Message</h2>
+        <p>Your Sim must leave a legacy message:</p>
+        <blockquote><em>“This is where we began. Whatever you build next, don’t forget where we came from.”</em></blockquote>
+      </section>
+    </main>
+    <audio id="rollSound" src="roll.mp3" preload="auto"></audio>
   </div>
-
   <footer>
     <p>&copy; 2025 CandyBlack – Sims 4 Legacy Challenge</p>
   </footer>
-<script>
-const baseGameTraits = [
-  "Active", "Cheerful", "Creative", "Genius", "Gloomy", "Goofball", "Hot-Headed", "Romantic", "Self-Assured", "Unflirty",
-  "Bookworm", "Foodie", "Geek", "Glutton", "Lazy", "Materialistic", "Music Lover", "Neat", "Perfectionist", "Slob", "Snob",
-  "Art Lover", "Ambitious", "Childish", "Clumsy", "Dance Machine", "Loner", "Mean", "Outgoing"
-];
-
-const skillToTraits = {
-  "Painting": ["Creative", "Art Lover"],
-  "Writing": ["Bookworm", "Loner"],
-  "Programming": ["Geek", "Genius"],
-  "Music": ["Music Lover", "Creative"],
-  "Handiness": ["Perfectionist", "Clumsy"],
-  "Gardening": ["Loner", "Gloomy"],
-  "Collecting": ["Genius", "Ambitious"],
-  "Photography": ["Self-Assured", "Snob"],
-  "Charisma Hustling": ["Outgoing", "Cheerful"]
-};
-
-function populateTraitDropdown(select, options) {
-  select.innerHTML = "";
-  options.forEach(trait => {
-    const opt = document.createElement("option");
-    opt.value = trait;
-    opt.textContent = trait;
-    select.appendChild(opt);
-  });
-}
-
-function rollTrait(selectId) {
-  const trait = baseGameTraits[Math.floor(Math.random() * baseGameTraits.length)];
-  document.getElementById(selectId).value = trait;
-  localStorage.setItem(selectId, trait);
-}
-
-function updateSkillLinkedTrait(skillNames) {
-  const trait3 = document.getElementById("trait3");
-  const relatedTraits = new Set();
-
-  skillNames.forEach(skill => {
-    const baseSkill = skill.split("–")[0].trim().replace(/[🎨✍️💻🎸🔧🌿🪙📷🗣️]/g, "").trim();
-    (skillToTraits[baseSkill] || []).forEach(trait => relatedTraits.add(trait));
-  });
-
-  populateTraitDropdown(trait3, Array.from(relatedTraits));
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  ["trait1", "trait2"].forEach(id => populateTraitDropdown(document.getElementById(id), baseGameTraits));
-
-  document.getElementById("simName").value = localStorage.getItem("simName") || "";
-  ["trait1", "trait2", "trait3"].forEach(id => {
-    const el = document.getElementById(id);
-    if (localStorage.getItem(id)) {
-      el.value = localStorage.getItem(id);
-    }
-    el.addEventListener("change", () => localStorage.setItem(id, el.value));
-  });
-
-  document.getElementById("simName").addEventListener("input", e => {
-    localStorage.setItem("simName", e.target.value);
-  });
-});
-</script>
-<script>
-function rollSkillTrait() {
-  const trait3Select = document.getElementById("trait3");
-  if (!trait3Select || trait3Select.options.length === 0) return;
-  const options = Array.from(trait3Select.options);
-  const random = options[Math.floor(Math.random() * options.length)];
-  trait3Select.value = random.value;
-  localStorage.setItem("trait3", random.value);
-}
-</script>
 </body>
 </html>
