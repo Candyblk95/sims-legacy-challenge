@@ -127,6 +127,9 @@
 
   <label>🎨 Trait 3 (based on skills):</label><br>
   <select id="trait3"></select><br><br>
+<label>🎲 Trait 3 (based on skills):</label>
+  <button onclick="rollSkillTrait()">Roll Trait 3</button><br>
+  <select id="trait3"></select><br><br>
 </section>
 </main>
     <!-- Dice roll sound -->
@@ -200,6 +203,16 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("simName", e.target.value);
   });
 });
+</script>
+<script>
+function rollSkillTrait() {
+  const trait3Select = document.getElementById("trait3");
+  if (!trait3Select || trait3Select.options.length === 0) return;
+  const options = Array.from(trait3Select.options);
+  const random = options[Math.floor(Math.random() * options.length)];
+  trait3Select.value = random.value;
+  localStorage.setItem("trait3", random.value);
+}
 </script>
 </body>
 </html>
