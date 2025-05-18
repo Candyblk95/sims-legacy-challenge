@@ -229,11 +229,12 @@ function generateSimIDCard() {
   const canvas = document.getElementById("simIdCanvas");
   const ctx = canvas.getContext("2d");
 
+  // Set canvas to match template background image
   canvas.width = 1011;
   canvas.height = 639;
 
   const bg = new Image();
-  bg.src = "SimID.png"; // Ensure this file is in your project folder
+  bg.src = "SimID.png"; // Ensure this file matches the one shown in your design
 
   bg.onload = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -241,41 +242,40 @@ function generateSimIDCard() {
 
     const simImageData = localStorage.getItem("simImage");
 
+    const name = localStorage.getItem("simName") || "Unnamed Sim";
+    const trait1 = localStorage.getItem("trait1") || "-";
+    const trait2 = localStorage.getItem("trait2") || "-";
+    const trait3 = localStorage.getItem("trait3") || "-";
+    const worldRaw = document.getElementById("worldResult")?.innerText || "";
+    const world = worldRaw.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
+    const skills = window.rolledSkills || ["-", "-", "-"];
+
     function drawTextContent() {
-      const name = localStorage.getItem("simName") || "Unnamed Sim";
-      const trait1 = localStorage.getItem("trait1") || "-";
-      const trait2 = localStorage.getItem("trait2") || "-";
-      const trait3 = localStorage.getItem("trait3") || "-";
-      const worldResult = document.getElementById("worldResult")?.innerText.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
-      const skills = window.rolledSkills || ["-", "-", "-"];
-
-      // Set up styles
-      ctx.textAlign = "center";
+      ctx.textAlign = "left";
       ctx.fillStyle = "#000";
 
-      // Name
-      ctx.font = "bold 54px Arial";
+      // 🟣 Name
+      ctx.font = "bold 52px Arial";
       ctx.fillStyle = "#f00081";
-      ctx.fillText(name, 710, 150);
+      ctx.fillText(name, 440, 130);
 
-      // World
-      ctx.font = "bold 28px Arial";
+      // 📍 World
+      ctx.font = "bold 26px Arial";
       ctx.fillStyle = "#000";
-      ctx.fillText("📍 Location : " + worldResult, 710, 210);
+      ctx.fillText("📍 Location : " + world, 440, 180);
 
-      // Traits
-      ctx.font = "bold 28px Arial";
-      ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, 710, 260);
+      // 🧬 Traits
+      ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, 440, 230);
 
-      // Skills
-      ctx.fillText("🎓 Skills : " + skills.join(", "), 710, 310);
+      // 🎓 Skills
+      ctx.fillText("🎓 Skills : " + skills.join(", "), 440, 280);
 
-      // Palette
+      // 🎨 Palette
       ctx.font = "20px Arial";
-      ctx.fillText("🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen", 505, 370);
+      ctx.fillText("🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen", 290, 340);
 
-      // Style
-      ctx.fillText("🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude", 505, 410);
+      // 🛋️ Style
+      ctx.fillText("🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude", 290, 375);
     }
 
     if (simImageData) {
@@ -283,10 +283,11 @@ function generateSimIDCard() {
       simPic.onload = () => {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(240, 320, 170, 0, Math.PI * 2, true); // circular mask
+        ctx.arc(210, 310, 160, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.clip();
-        ctx.drawImage(simPic, 70, 150, 340, 340); // size and placement
+
+        ctx.drawImage(simPic, 60, 150, 300, 320); // tighter positioning
         ctx.restore();
 
         drawTextContent();
@@ -297,7 +298,5 @@ function generateSimIDCard() {
     }
   };
 }
-
-
 </script>
 
