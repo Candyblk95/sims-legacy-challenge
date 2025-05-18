@@ -5,7 +5,7 @@ const skills = [
   "🎸 Music – Musical Genius",
   "🔧 Handiness – Nerd Brain",
   "🌿 Gardening – Freelance Botanist",
-  "🪙 Collecting – The Curator",
+  "💎 Collecting – The Curator",
   "📷 Photography – Fabulously Wealthy",
   "🗣️ Charisma Hustling – Friend of the World (or Wealthy)"
 ];
