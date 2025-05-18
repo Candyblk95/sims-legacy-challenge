@@ -233,7 +233,7 @@ function generateSimIDCard() {
   canvas.height = 639;
 
   const bg = new Image();
-  bg.src = "SimID.png"; // Make sure this file is in your root or public folder
+  bg.src = "SimID.png"; // Ensure this file is in your project folder
 
   bg.onload = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -246,37 +246,36 @@ function generateSimIDCard() {
       const trait1 = localStorage.getItem("trait1") || "-";
       const trait2 = localStorage.getItem("trait2") || "-";
       const trait3 = localStorage.getItem("trait3") || "-";
-      const worldResult = document.getElementById("worldResult").innerText.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
+      const worldResult = document.getElementById("worldResult")?.innerText.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
       const skills = window.rolledSkills || ["-", "-", "-"];
 
-      // Text: Setup
+      // Set up styles
       ctx.textAlign = "center";
       ctx.fillStyle = "#000";
 
       // Name
-      ctx.font = "bold 48px Arial";
+      ctx.font = "bold 54px Arial";
       ctx.fillStyle = "#f00081";
-      ctx.fillText(name, 700, 140);
+      ctx.fillText(name, 710, 150);
 
       // World
-      ctx.font = "bold 24px Arial";
+      ctx.font = "bold 28px Arial";
       ctx.fillStyle = "#000";
-      ctx.fillText("📍 Location : " + worldResult, 700, 190);
+      ctx.fillText("📍 Location : " + worldResult, 710, 210);
 
       // Traits
-      ctx.font = "bold 24px Arial";
-      ctx.fillText("🧬 Traits : " + trait1 + ", " + trait2 + ", " + trait3, 700, 240);
+      ctx.font = "bold 28px Arial";
+      ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, 710, 260);
 
       // Skills
-      ctx.font = "bold 24px Arial";
-      ctx.fillText("🎓 Skills : " + skills.join(", "), 700, 290);
+      ctx.fillText("🎓 Skills : " + skills.join(", "), 710, 310);
 
       // Palette
       ctx.font = "20px Arial";
-      ctx.fillText("🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen", 505, 360);
+      ctx.fillText("🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen", 505, 370);
 
-      // Interior Style
-      ctx.fillText("🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude", 505, 400);
+      // Style
+      ctx.fillText("🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude", 505, 410);
     }
 
     if (simImageData) {
@@ -284,11 +283,10 @@ function generateSimIDCard() {
       simPic.onload = () => {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(230, 320, 150, 0, Math.PI * 2, true);
+        ctx.arc(240, 320, 170, 0, Math.PI * 2, true); // circular mask
         ctx.closePath();
         ctx.clip();
-
-        ctx.drawImage(simPic, 80, 170, 300, 300);
+        ctx.drawImage(simPic, 70, 150, 340, 340); // size and placement
         ctx.restore();
 
         drawTextContent();
@@ -299,6 +297,7 @@ function generateSimIDCard() {
     }
   };
 }
+
 
 </script>
 
