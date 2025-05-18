@@ -5,12 +5,13 @@ const skills = [
   "🎸 Music – Musical Genius",
   "🔧 Handiness – Nerd Brain",
   "🌿 Gardening – Freelance Botanist",
-  "🪙 Collecting – The Curator",
+  "💎 Collecting – The Curator",
   "📷 Photography – Fabulously Wealthy",
   "🗣️ Charisma Hustling – Friend of the World (or Wealthy)"
 ];
 
 const usedSkills = new Set();
+window.rolledSkills = []; // ✅ Global store for traits.js
 
 function typewriterEffect(text, element, speed = 25) {
   element.textContent = "";
@@ -62,11 +63,14 @@ function spinSkill() {
   // Type out the result
   typewriterEffect(result, li, 25);
 
-  // Check if all 3 skills are rolled, then update Trait 3 dropdown
-  setTimeout(() => {
-    const rolledSkills = Array.from(document.querySelectorAll("#skillResults li")).map(li => li.textContent);
-    if (rolledSkills.length === 3 && typeof updateSkillLinkedTrait === "function") {
-      updateSkillLinkedTrait(rolledSkills);
-    }
-  }, 1000); // wait for typing to complete before updating
+  // ✅ Extract base skill and store it globally for traits
+  const baseSkill = result.split("–")[0].trim().replace(/[^\w\s]/gi, '').trim();
+  if (!window.rolledSkills.includes(baseSkill)) {
+    window.rolledSkills.push(baseSkill);
+  }
+
+  // Optional: update trait dropdown when all 3 are rolled
+  if (window.rolledSkills.length === 3 && typeof updateSkillLinkedTrait === "function") {
+    setTimeout(() => updateSkillLinkedTrait(window.rolledSkills), 1000);
+  }
 }
