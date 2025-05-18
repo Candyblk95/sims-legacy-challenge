@@ -8,6 +8,27 @@ const results = [
 
 let lastIndex = -1;
 
+function typewriterEffect(text, element, speed = 20) {
+  element.textContent = "";
+  let i = 0;
+
+  const typeSound = document.getElementById("typeSound");
+
+  const interval = setInterval(() => {
+    element.textContent += text.charAt(i);
+    i++;
+
+    if (typeSound && i % 2 === 0) {
+      typeSound.currentTime = 0;
+      typeSound.play();
+    }
+
+    if (i >= text.length) {
+      clearInterval(interval);
+    }
+  }, speed);
+}
+
 function rollWorld() {
   let index;
   do {
@@ -17,21 +38,22 @@ function rollWorld() {
   lastIndex = index;
 
   const resultBox = document.getElementById("worldResult");
-  const audio = document.getElementById("rollSound");
+  const rollSound = document.getElementById("rollSound");
 
-  // Play sound
-  if (audio) {
-    audio.currentTime = 0;
-    audio.play();
+  // Play roll sound
+  if (rollSound) {
+    rollSound.currentTime = 0;
+    rollSound.play();
   }
 
-  // Reset animation
+  // Fade-in class reset
   resultBox.classList.remove("fade-in");
-  void resultBox.offsetWidth; // Trigger reflow
+  void resultBox.offsetWidth;
   resultBox.classList.add("fade-in");
 
-  // Display text
-  resultBox.textContent = results[index];
+  // Start typing animation
+  typewriterEffect(results[index], resultBox, 20);
 }
+
 
 
