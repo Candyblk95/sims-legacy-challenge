@@ -1,29 +1,44 @@
-// Expanded trait associations: each trait is now linked to relevant skills
+// Complete Base Game Trait → Skill Mapping
 const traitSkillMap = {
-  "Creative": ["Painting", "Music", "Photography"],
-  "Art Lover": ["Painting", "Photography"],
-  "Bookworm": ["Writing", "Programming"],
-  "Loner": ["Writing", "Gardening", "Handiness"],
-  "Geek": ["Programming", "Collecting", "Photography"],
-  "Genius": ["Programming", "Collecting"],
-  "Music Lover": ["Music", "Charisma Hustling"],
-  "Clumsy": ["Handiness"],
-  "Perfectionist": ["Painting", "Handiness"],
-  "Self-Assured": ["Photography", "Charisma Hustling"],
-  "Outgoing": ["Charisma Hustling"],
-  "Cheerful": ["Charisma Hustling"],
-  "Goofball": ["Painting", "Charisma Hustling"],
-  "Hot-Headed": ["Programming", "Writing"],
-  "Gloomy": ["Writing", "Gardening"],
-  "Loves Outdoors": ["Gardening", "Painting", "Photography"],
-  "Snob": ["Photography", "Writing"],
+  "Active": ["Handiness"],
   "Ambitious": ["Collecting", "Charisma Hustling"],
+  "Art Lover": ["Painting", "Photography"],
+  "Bookworm": ["Writing"],
+  "Bro": ["Music", "Charisma Hustling"],
+  "Cheerful": ["Charisma Hustling"],
+  "Childish": ["Painting"],
+  "Clumsy": ["Programming", "Handiness"],
+  "Creative": ["Painting", "Writing", "Music"],
+  "Evil": ["Programming"],
+  "Family-Oriented": ["Gardening"],
+  "Foodie": ["Gardening"],
+  "Geek": ["Programming", "Collecting"],
+  "Genius": ["Programming", "Writing", "Collecting"],
+  "Gloomy": ["Writing", "Gardening", "Painting"],
+  "Glutton": ["Gardening"],
+  "Good": ["Gardening", "Charisma Hustling", "Collecting"],
+  "Goofball": ["Painting", "Charisma Hustling", "Music"],
+  "Hates Children": ["Writing"],
+  "Hot-Headed": ["Gardening", "Writing"],
+  "Insane": ["Programming"],
+  "Jealous": ["Charisma Hustling"],
+  "Kleptomaniac": ["Collecting"],
   "Lazy": ["Writing"],
-  "Neat": ["Handiness", "Gardening"],
-  "Materialistic": ["Photography"]
+  "Loner": ["Writing", "Gardening", "Handiness", "Collecting"],
+  "Loves Outdoors": ["Painting", "Gardening", "Handiness", "Collecting", "Photography"],
+  "Loyal": ["Gardening"],
+  "Materialistic": ["Handiness", "Collecting", "Photography"],
+  "Mean": ["Charisma Hustling"],
+  "Music Lover": ["Music"],
+  "Neat": ["Gardening", "Handiness"],
+  "Outgoing": ["Charisma Hustling", "Photography", "Music"],
+  "Perfectionist": ["Painting", "Writing", "Photography", "Handiness"],
+  "Romantic": ["Photography", "Music", "Charisma Hustling"],
+  "Self-Assured": ["Photography", "Charisma Hustling", "Handiness", "Music"],
+  "Slob": ["Handiness"],
+  "Snob": ["Photography", "Collecting", "Writing"]
 };
 
-// Get all unique traits linked to at least one skill
 const allSkillTraits = Object.keys(traitSkillMap);
 
 function rollSkillBasedTraits(skills, count = 3) {
@@ -51,7 +66,6 @@ function rollSkillBasedTraits(skills, count = 3) {
   return results;
 }
 
-// Update dropdowns with rolled traits
 function applyRolledSkillTraits(traits) {
   const fields = ["trait1", "trait2", "trait3"];
   fields.forEach((id, i) => {
@@ -70,7 +84,6 @@ function rollAllTraitsFromSkills() {
   applyRolledSkillTraits(rolledTraits);
 }
 
-// Add event
 document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("rollAllTraits");
   if (button) button.addEventListener("click", rollAllTraitsFromSkills);
