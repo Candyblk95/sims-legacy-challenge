@@ -16,6 +16,7 @@ const skillToTraits = {
   "Charisma Hustling": ["Outgoing", "Cheerful"]
 };
 
+// Populate a dropdown with a list of trait options
 function populateTraitDropdown(select, options) {
   select.innerHTML = "";
   options.forEach(trait => {
@@ -26,39 +27,70 @@ function populateTraitDropdown(select, options) {
   });
 }
 
+// Randomly select a trait from the base list and assign to a dropdown
 function rollTrait(selectId) {
   const trait = baseGameTraits[Math.floor(Math.random() * baseGameTraits.length)];
-  document.getElementById(selectId).value = trait;
-  localStorage.setItem(selectId, trait);
+  const select = document.getElementById(selectId);
+  if (select) {
+    select.value = trait;
+    localStorage.setItem(selectId, trait);
+  }
 }
 
+// Called by skill spinner to update trait 3 options based on skill links
 function updateSkillLinkedTrait(skillNames) {
   const trait3 = document.getElementById("trait3");
   const relatedTraits = new Set();
 
   skillNames.forEach(skill => {
-    const baseSkill = skill.split("–")[0].trim().replace("🎨", "").replace("✍️", "").replace("💻", "").replace("🎸", "").replace("🔧", "").replace("🌿", "").replace("🪙", "").replace("📷", "").replace("🗣️", "").trim();
+    const baseSkill = skill
+      .split("–")[0]
+      .replace(/[🎨✍️💻🎸🔧🌿🪙📷🗣️]/g, "")
+      .trim();
+
     (skillToTraits[baseSkill] || []).forEach(trait => relatedTraits.add(trait));
   });
 
   populateTraitDropdown(trait3, Array.from(relatedTraits));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Populate all trait dropdowns
-  ["trait1", "trait2"].forEach(id => populateTraitDropdown(document.getElementById(id), baseGameTraits));
+// Roll one of the options currently shown in the Trait 3 dropdown
+function rollSkillTrait() {
+  const trait3Select = document.getElementById("trait3");
+  if (!trait3Select || trait3Select.options.length === 0) return;
 
-  // Load saved data
-  document.getElementById("simName").value = localStorage.getItem("simName") || "";
-  ["trait1", "trait2", "trait3"].forEach(id => {
+  const options = Array.from(trait3Select.options);
+  const random = options[Math.floor(Math.random() * options.length)];
+
+  trait3Select.value = random.value;
+  localStorage.setItem("trait3", random.value);
+}
+
+// Initial setup
+document.addEventListener("DOMContentLoaded", () => {
+  // Populate Trait 1 & Trait 2 with all base traits
+  ["trait1", "trait2"].forEach(id => {
     const el = document.getElementById(id);
-    if (localStorage.getItem(id)) {
-      el.value = localStorage.getItem(id);
-    }
-    el.addEventListener("change", () => localStorage.setItem(id, el.value));
+    if (el) populateTraitDropdown(el, baseGameTraits);
   });
 
-  document.getElementById("simName").addEventListener("input", e => {
+  // Load saved values
+  document.getElementById("simName").value = localStorage.getItem("simName") || "";
+
+  ["trait1", "trait2", "trait3"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && localStorage.getItem(id)) {
+      el.value = localStorage.getItem(id);
+    }
+
+    if (el) {
+      el.addEventListener("change", () => {
+        localStorage.setItem(id, el.value);
+      });
+    }
+  });
+
+  document.getElementById("simName").addEventListener("input", (e) => {
     localStorage.setItem("simName", e.target.value);
   });
 });
