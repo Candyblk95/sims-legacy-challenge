@@ -233,7 +233,7 @@ function generateSimIDCard() {
   canvas.height = 639;
 
   const bg = new Image();
-  bg.src = "SimID.png"; // Make sure this is correctly referenced
+  bg.src = "SimID.png"; // Background image path
 
   bg.onload = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -249,16 +249,31 @@ function generateSimIDCard() {
     const world = worldRaw.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
     const skills = window.rolledSkills || ["-", "-", "-"];
 
-    function drawTextContent() {
-      ctx.textAlign = "left";
-      ctx.fillStyle = "#000";
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(" ");
+      let line = "";
 
-      // Base values for left-shifted layout
-      const textX = 400;      // ⬅️ shift everything left
-      const baseY = 160;      // ⬇️ lifted slightly for better spacing
+      for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + " ";
+        const testWidth = ctx.measureText(testLine).width;
+        if (testWidth > maxWidth && i > 0) {
+          ctx.fillText(line, x, y);
+          line = words[i] + " ";
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, y);
+    }
+
+    function drawTextContent() {
+      const textX = 370; // ⬅️ Move all body text slightly left
+      const baseY = 160;
       const lineHeight = 50;
 
       // Name
+      ctx.textAlign = "left";
       ctx.font = "bold 52px Arial";
       ctx.fillStyle = "#f00081";
       ctx.fillText(name, textX, baseY);
@@ -268,44 +283,43 @@ function generateSimIDCard() {
       ctx.fillStyle = "#000";
       ctx.fillText("📍 Location : " + world, textX, baseY + lineHeight);
 
-      // Traits
-      ctx.fillText(`🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, textX, baseY + lineHeight * 2);
+      // Traits with wrap
+      ctx.font = "bold 26px Arial";
+      wrapText(ctx, `🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, textX, baseY + lineHeight * 2.1, 600, 32);
 
-      // Skills
-      ctx.fillText("🎓 Skills : " + skills.join(", "), textX, baseY + lineHeight * 3);
+      // Skills with wrap
+      wrapText(ctx, `🎓 Skills : ${skills.join(", ")}`, textX, baseY + lineHeight * 3.2, 600, 32);
 
-     // Move palette + style lower and center them
-ctx.font = "20px Arial";
-ctx.textAlign = "center";
+      // Color Palette + Interior Style (centered)
+      ctx.font = "20px Arial";
+      ctx.textAlign = "center";
 
-// Move slightly down and to the right (using x + offset)
-const shiftX = 20; // ➡️ nudge to the right
-const offsetY = 30; // ⬇️ nudge down from current spacing
+      const shiftX = 20;
+      const offsetY = 30;
 
-ctx.fillText(
-  "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
-  canvas.width / 2 + shiftX,
-  baseY + lineHeight * 6.3 + offsetY
-);
+      ctx.fillText(
+        "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
+        canvas.width / 2 + shiftX,
+        baseY + lineHeight * 6.3 + offsetY
+      );
 
-ctx.fillText(
-  "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
-  canvas.width / 2 + shiftX,
-  baseY + lineHeight * 7 + offsetY
-);
-}
-
+      ctx.fillText(
+        "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
+        canvas.width / 2 + shiftX,
+        baseY + lineHeight * 7 + offsetY
+      );
+    }
 
     if (simImageData) {
       const simPic = new Image();
       simPic.onload = () => {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(210, 300, 150, 0, Math.PI * 2, true); // Circle center
+        ctx.arc(210, 300, 150, 0, Math.PI * 2, true); // Circular mask
         ctx.closePath();
         ctx.clip();
 
-        ctx.drawImage(simPic, 60, 150, 300, 300); // Profile picture position
+        ctx.drawImage(simPic, 60, 150, 300, 300); // Sim image
         ctx.restore();
 
         drawTextContent();
@@ -316,6 +330,7 @@ ctx.fillText(
     }
   };
 }
+
 </script>
 
 
