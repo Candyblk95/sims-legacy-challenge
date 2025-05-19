@@ -284,10 +284,24 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   ctx.fillStyle = "#f00081";
   ctx.fillText(name, textX, baseY);
 
-  // 📍 World
-  ctx.font = "bold 26px Arial";
-  ctx.fillStyle = "#000";
-  ctx.fillText("📍 Location : " + world, textX, baseY + lineHeight + 20);
+  // 📍 Location label
+ctx.textAlign = "left";
+ctx.font = "bold 26px Arial";
+ctx.fillStyle = "#000";
+ctx.fillText("📍 Location :", textX, baseY + lineHeight);
+
+// Location value (wrapped, center-aligned beside label)
+ctx.font = "24px Arial";
+ctx.textAlign = "center";
+wrapText(
+  ctx,
+  world,
+  textX + 360,                // aligned to the right of the label
+  baseY + lineHeight,         // same vertical level
+  460,                        // max width
+  30                          // line spacing
+);
+
 
 // 🧬 Traits label
 ctx.textAlign = "left";
