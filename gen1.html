@@ -274,60 +274,54 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
 
     function drawTextContent() {
-      const textX = 370; // ⬅️ Move all body text slightly left
-      const baseY = 160;
-      const lineHeight = 50;
+  const textX = 370;
+  const baseY = 160;
+  const lineHeight = 50;
 
-      // Name
-      ctx.textAlign = "left";
-      ctx.font = "bold 52px Arial";
-      ctx.fillStyle = "#f00081";
-      ctx.fillText(name, textX, baseY);
+  // 🟣 Name
+  ctx.textAlign = "left";
+  ctx.font = "bold 52px Arial";
+  ctx.fillStyle = "#f00081";
+  ctx.fillText(name, textX, baseY);
 
-      // World
-      ctx.font = "bold 26px Arial";
-      ctx.fillStyle = "#000";
-      ctx.fillText("📍 Location : " + world, textX, baseY + lineHeight);
+  // 📍 World
+  ctx.font = "bold 26px Arial";
+  ctx.fillStyle = "#000";
+  ctx.fillText("📍 Location : " + world, textX, baseY + lineHeight);
 
-    // Keep alignment left for emoji label
-    ctx.textAlign = "left";
-    ctx.font = "bold 26px Arial";
-    ctx.fillText("🧬 Traits :", textX, baseY + lineHeight * 3.1);
+  // 🧬 Traits label
+  ctx.font = "bold 26px Arial";
+  ctx.fillText("🧬 Traits :", textX, baseY + lineHeight * 3.1);
 
-   // Center the wrapped trait values underneath
-   ctx.font = "24px Arial";
-   wrapText(ctx, `${trait1}, ${trait2}, ${trait3}`, textX + 160, baseY + lineHeight * 3.6, 500, 30);
+  // Trait values — center aligned only
+  ctx.font = "24px Arial";
+  ctx.textAlign = "center"; // <-- only for trait values
+  wrapText(ctx, `${trait1}, ${trait2}, ${trait3}`, textX + 160, baseY + lineHeight * 3.6, 500, 30);
 
+  // 🎓 Skills — back to left aligned
+  ctx.textAlign = "left";
+  ctx.font = "bold 26px Arial";
+  ctx.fillText("🎓 Skills : " + skills.join(", "), textX, baseY + lineHeight * 5.2);
 
-      // Skills label
-ctx.textAlign = "left";
-ctx.font = "bold 26px Arial";
-ctx.fillText("🎓 Skills :", textX, baseY + lineHeight * 5.2);
+  // 🖼️ Color Palette & Style (centered)
+  ctx.font = "20px Arial";
+  ctx.textAlign = "center";
+  const shiftX = 20;
+  const offsetY = 30;
 
-// Center-align the wrapped list
-ctx.font = "24px Arial";
-wrapText(ctx, skills.join(", "), textX + 120, baseY + lineHeight * 5.6, 500, 30);
+  ctx.fillText(
+    "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
+    canvas.width / 2 + shiftX,
+    baseY + lineHeight * 6.3 + offsetY
+  );
 
+  ctx.fillText(
+    "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
+    canvas.width / 2 + shiftX,
+    baseY + lineHeight * 7 + offsetY
+  );
+}
 
-      // Color Palette + Interior Style (centered)
-      ctx.font = "20px Arial";
-      ctx.textAlign = "center";
-
-      const shiftX = 20;
-      const offsetY = 30;
-
-      ctx.fillText(
-        "🎨 Color Palette: Burnt Sienna · Olive Green · Charcoal Grey · Faded Linen",
-        canvas.width / 2 + shiftX,
-        baseY + lineHeight * 6.3 + offsetY
-      );
-
-      ctx.fillText(
-        "🛋️ Interior Style: Rustic Minimalism · Wasteland Survival · Handcrafted Solitude",
-        canvas.width / 2 + shiftX,
-        baseY + lineHeight * 7 + offsetY
-      );
-    }
 
     if (simImageData) {
       const simPic = new Image();
