@@ -132,16 +132,6 @@
         <p>Your Sim must leave a legacy message:</p>
         <blockquote><em>“This is where we began. Whatever you build next, don’t forget where we came from.”</em></blockquote>
       </section>
-
-<!-- Hidden Gen 2 Button -->
-<div id="gen2ButtonWrapper" style="display: none; text-align: center; margin-top: 40px;">
-  <a href="gen2.html">
-    <button style="padding: 12px 20px; font-size: 18px; background-color: #f00081; color: white; border: none; border-radius: 8px;">
-      🚀 Begin Generation Two
-    </button>
-  </a>
-</div>
-
     </main>
   </div>
 
@@ -162,6 +152,18 @@
       select.appendChild(opt);
     });
   }
+
+  // DOM Init: Single listener for all setup
+  document.addEventListener("DOMContentLoaded", () => {
+    // Restore checkboxes from localStorage
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((box, index) => {
+      const key = `gen1-check-${index}`;
+      box.checked = localStorage.getItem(key) === 'true';
+      box.addEventListener('change', () => {
+        localStorage.setItem(key, box.checked);
+      });
+    });
 
     // Restore Sim name
     const nameInput = document.getElementById("simName");
@@ -193,52 +195,6 @@
 });
   });
 </script>
-
-<script>
-  // DOM Init: Single listener for all setup
-  document.addEventListener("DOMContentLoaded", () => {
-    const checkboxes = document.querySelectorAll("section:nth-of-type(8) input[type='checkbox']");
-    const gen2Button = document.getElementById("gen2ButtonWrapper");
-
-    function checkCompletion() {
-      const allChecked = Array.from(checkboxes).every(box => box.checked);
-      gen2Button.style.display = allChecked ? "block" : "none";
-    }
-
-    checkboxes.forEach(box => box.addEventListener("change", checkCompletion));
-    checkCompletion();
-
-    // Sim name restore
-    const nameInput = document.getElementById("simName");
-    nameInput.value = localStorage.getItem("simName") || "";
-    nameInput.addEventListener("input", e => {
-      localStorage.setItem("simName", e.target.value);
-    });
-
-    // Traits button
-    const rollButton = document.getElementById("rollAllTraits");
-    if (rollButton) {
-      rollButton.addEventListener("click", rollAllTraitsFromSkills);
-    }
-
-    // Restore trait selections
-    ["trait1", "trait2", "trait3"].forEach(id => {
-      const select = document.getElementById(id);
-      const savedValue = localStorage.getItem(id);
-
-      if (select && savedValue) {
-        if (![...select.options].some(opt => opt.value === savedValue)) {
-          const opt = document.createElement("option");
-          opt.value = savedValue;
-          opt.textContent = savedValue;
-          select.appendChild(opt);
-        }
-        select.value = savedValue;
-      }
-    });
-  });
-</script>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -434,5 +390,4 @@ function downloadSimIDCard() {
   link.click();
 }
 </script>
-
 
