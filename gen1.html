@@ -249,23 +249,29 @@ function generateSimIDCard() {
     const world = worldRaw.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
     const skills = window.rolledSkills || ["-", "-", "-"];
 
-    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(" ");
-      let line = "";
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  ctx.textAlign = "center"; // Center alignment
+  const words = text.split(" ");
+  let line = "";
+  let currentY = y;
 
-      for (let i = 0; i < words.length; i++) {
-        const testLine = line + words[i] + " ";
-        const testWidth = ctx.measureText(testLine).width;
-        if (testWidth > maxWidth && i > 0) {
-          ctx.fillText(line, x, y);
-          line = words[i] + " ";
-          y += lineHeight;
-        } else {
-          line = testLine;
-        }
-      }
-      ctx.fillText(line, x, y);
+  for (let i = 0; i < words.length; i++) {
+    const testLine = line + words[i] + " ";
+    const testWidth = ctx.measureText(testLine).width;
+
+    if (testWidth > maxWidth && i > 0) {
+      ctx.fillText(line.trim(), x, currentY);
+      line = words[i] + " ";
+      currentY += lineHeight;
+    } else {
+      line = testLine;
     }
+  }
+
+  // Draw the last line
+  ctx.fillText(line.trim(), x, currentY);
+}
+
 
     function drawTextContent() {
       const textX = 370; // ⬅️ Move all body text slightly left
@@ -283,9 +289,15 @@ function generateSimIDCard() {
       ctx.fillStyle = "#000";
       ctx.fillText("📍 Location : " + world, textX, baseY + lineHeight);
 
-      // Traits with wrap
-      ctx.font = "bold 26px Arial";
-      wrapText(ctx, `🧬 Traits : ${trait1}, ${trait2}, ${trait3}`, textX, baseY + lineHeight * 3.1, 600, 32);
+    // Keep alignment left for emoji label
+    ctx.textAlign = "left";
+    ctx.font = "bold 26px Arial";
+    ctx.fillText("🧬 Traits :", textX, baseY + lineHeight * 3.1);
+
+   // Center the wrapped trait values underneath
+   ctx.font = "24px Arial";
+   wrapText(ctx, `${trait1}, ${trait2}, ${trait3}`, textX + 160, baseY + lineHeight * 3.6, 500, 30);
+
 
       // Skills with wrap
       wrapText(ctx, `🎓 Skills : ${skills.join(", ")}`, textX, baseY + lineHeight * 5.2, 600, 32);
