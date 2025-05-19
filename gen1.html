@@ -296,12 +296,25 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   // Trait values — center aligned only
   ctx.font = "24px Arial";
   ctx.textAlign = "center"; // <-- only for trait values
-  wrapText(ctx, `${trait1}, ${trait2}, ${trait3}`, textX + 160, baseY + lineHeight * 3.6, 500, 30);
+  wrapText(ctx, `${trait1}, ${trait2}, ${trait3}`, textX + 160, baseY + lineHeight * 3.1, 500, 30);
 
-  // 🎓 Skills — back to left aligned
-  ctx.textAlign = "left";
-  ctx.font = "bold 26px Arial";
-  ctx.fillText("🎓 Skills : " + skills.join(", "), textX, baseY + lineHeight * 5.2);
+  // 🎓 Skills label (bold, left-aligned)
+ctx.textAlign = "left";
+ctx.font = "bold 26px Arial";
+ctx.fillText("🎓 Skills :", textX, baseY + lineHeight * 5.2);
+
+// Skills values (centered wrap, starting on same line to the right of label)
+ctx.font = "24px Arial";
+ctx.textAlign = "left"; // keep alignment left so wrapping starts after label
+wrapText(
+  ctx,
+  skills.join(", "),
+  textX + 140,                // start just after the label
+  baseY + lineHeight * 5.2,   // same vertical line
+  500,                        // wrapping width
+  30                          // line height between wraps
+);
+
 
   // 🖼️ Color Palette & Style (centered)
   ctx.font = "20px Arial";
