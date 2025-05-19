@@ -299,8 +299,15 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
    wrapText(ctx, `${trait1}, ${trait2}, ${trait3}`, textX + 160, baseY + lineHeight * 3.6, 500, 30);
 
 
-      // Skills with wrap
-      wrapText(ctx, `🎓 Skills : ${skills.join(", ")}`, textX, baseY + lineHeight * 5.2, 600, 32);
+      // Skills label
+ctx.textAlign = "left";
+ctx.font = "bold 26px Arial";
+ctx.fillText("🎓 Skills :", textX, baseY + lineHeight * 5.2);
+
+// Center-align the wrapped list
+ctx.font = "24px Arial";
+wrapText(ctx, skills.join(", "), textX + 120, baseY + lineHeight * 5.6, 500, 30);
+
 
       // Color Palette + Interior Style (centered)
       ctx.font = "20px Arial";
