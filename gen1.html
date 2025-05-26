@@ -3,24 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generation One – From Ashes</title>
+  <title>The Rebuild Challenge – From Ashes</title>
   <link rel="stylesheet" href="style.css" />
-<script src="wheel.js" defer></script>
-<script src="worldpicker.js" defer></script>
-<script src="traits.js" defer></script>
-
 </head>
 <body>
   <header>
-    <h1>🌱 Generation One – From Ashes</h1>
+    <h1>🌆 The Rebuild Challenge: Lot by Lot</h1>
     <nav>
       <a href="index.html">Home</a>
     </nav>
   </header>
+
   <div class="content-wrapper">
     <main>
-    <section>
-      <h2>📦 Gen One Overview</h2>
+      <section>
+        <h2>🏗️ A Survival Legacy Built One House at a Time</h2>
+        <p>
+          What if you could earn your way into a beautifully crafted world—one lot at a time?
+          The Rebuild Challenge is a flexible Rags-to-Riches-style gameplay framework that lets you unlock a curated neighborhood
+          by completing story-rich challenges and skill-driven milestones.
+        </p>
+        <p>
+          Whether your world is fairycore, cyberpunk, or dark academia, the Rebuild Challenge adapts to any theme.
+          Each new lot is unlocked only after completing strict goals tied to your Sim’s growth, skill mastery, or story arcs.
+        </p>
+        <p>
+          This challenge does not require generational play unless specified—you can play as one Sim throughout or create a
+          multi-generational legacy if you prefer.
+        </p>
+      </section>
+
+      <section>
+        <h2>🌱 Generation One – From Ashes (Single Mum + Teen Story)</h2>
+        <ul>
+          <li>🏘️ <strong>Starting Lot:</strong> Mirror Park – House 1</li>
+          <li>👩 <strong>Sim:</strong> Create one adult female sim</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🏚️ Start Conditions</h2>
+        <ul>
+          <li>§0 simoleons</li>
+          <li>Bulldozed residential lot (House 1 location)</li>
+          <li>No cheats, no furniture, no structures</li>
+        </ul>
+      </section>
       <ul>
         <li><strong>🎯 Pack Focus:</strong> Base Game Only</li>
         <li><strong>🔥 Theme:</strong> Off-the-grid survival, emotional scars, rebuilding legacy</li>
@@ -29,14 +57,48 @@
       </ul>
     </section>
     <section>
-  <h2>🎲 World & Backstory Selector</h2>
+         <h2>🔥 The Ashes of a Lie (Story Intro)</h2>
+        <p>
+          The fire was no accident. You smelled the gasoline before the flames took hold, but no one believed you.
+          Not the police, not the insurance adjuster, not even your own family.
+        </p>
+        <p>
+          They said it was faulty wiring, that you’d been careless. That the grief was making you paranoid.
+          But you know. Someone wanted you silenced.
+        </p>
+        <p>
+          You disappeared after that night, vanishing into the overgrown outskirts of Willow Creek.
+          The swamp is dense, quiet, and mercifully forgetful. Here, you build your life out of rot and ruin.
+        </p>
+        <p>
+          Each mosquito bite reminds you you're still alive. Each day you survive is a middle finger to whoever lit the match.
+        </p>
   <p>Click to randomly reveal your Sim’s origin story and survival setting:</p>
   <button onclick="rollWorld()">Roll World</button>
   <pre id="worldResult" style="white-space: pre-wrap; background: #1e1e1e; padding: 15px; border-left: 4px solid #F00081; border-radius: 6px; margin-top: 15px;"></pre>
 </section>
 
-    <section>
-  <h2>🎡 Spin-to-Survive: The Triple Skill Challenge</h2>
+ <section>
+        <h2>🛠️ Lot Requirements</h2>
+        <ul>
+          <li><strong>Mandatory Trait:</strong> Off the Grid</li>
+          <li><strong>Challenge Trait (choose one):</strong> Filthy, Grody, Quake Zone, Volcanic Activity (cheat), or Creepy Crawlies (mod)</li>
+          <li><strong>Helpful Trait (choose one):</strong> Homey, Sunny Aspect, Great Soil, Fast Internet (if earned)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🎡 Skill Unlock System: Spin-to-Survive</h2>
+        <p>At the start of the generation, spin a wheel (or randomize) to assign 3 base game skills. You must:</p>
+        <h2>🎯 Generation Completion Goals</h2>
+        <ul>
+          <li><input type="checkbox"> Max 3 skills</li>
+          <li><input type="checkbox"> Complete 3 aspirations</li>
+          <li><input type="checkbox"> Reach £150,000 value</li>
+          <li><input type="checkbox"> Build an off-the-grid home</li>
+          <li><input type="checkbox"> Have or adopt an heir</li>
+          <li><input type="checkbox"> Heir must witness trauma (death, fire, betrayal)</li>
+        </ul>
   <p>Click the button <strong>three times</strong> to receive your Sim’s random skills:</p>
   <button onclick="spinSkill()">Spin Skill</button>
   <ul id="skillResults" style="margin-top: 10px;"></ul>
@@ -87,56 +149,52 @@
         <li>🔹 1 Helpful Trait: Homey, Sunny Aspect, Great Soil, Fast Internet (only if earned)</li>
       </ul>
     </section>
-
-
-      <section>
-        <h2>🔞 Challenge Restrictions</h2>
+ <section>
+        <h2>⛔ Challenge Restrictions</h2>
         <ul>
-          <li>❌ No careers or freelance gigs</li>
-          <li>❌ No selling unrelated items</li>
-          <li>❌ No modern power/plumbing</li>
-          <li>✅ Use off-the-grid Base Game items: dew collectors, composting toilets, candles, solar panels (if earned)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>🎯 Generation Completion Goals</h2>
-        <ul>
-          <li><input type="checkbox"> Max 3 skills</li>
-          <li><input type="checkbox"> Complete 3 aspirations</li>
-          <li><input type="checkbox"> Reach £150,000 value</li>
-          <li><input type="checkbox"> Build an off-the-grid home</li>
-          <li><input type="checkbox"> Create a Legacy Vault with:
-            <ul>
-              <li><input type="checkbox"> 🖼️ Family portrait of Gen 1 & Gen 2</li>
-              <li><input type="checkbox"> 📦 3 skill-based heirlooms</li>
-            </ul>
-          </li>
-          <li><input type="checkbox"> Have or adopt an heir</li>
-          <li><input type="checkbox"> Heir must witness trauma (death, fire, betrayal)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>🧳️ Legacy Vault Tradition</h2>
-        <ul>
-          <li>Create a hidden room (attic, basement, or vault)</li>
-          <li>Lock it for Gen 2 only</li>
-          <li>Store heirlooms and the family portrait</li>
-          <li>Pass this space through generations</li>
+          <li>❌ No jobs or freelance gigs</li>
+          <li>❌ No selling anything unrelated to your assigned skills</li>
+          <li>❌ No modern plumbing or electricity</li>
+          <li>✅ You may use off-the-grid base game items (compost toilets, candle lights, dew collectors, etc.)</li>
+          <li>✅ Only Base Game, Holiday Celebration Pack, and Outdoor Retreat may be used</li>
         </ul>
       </section>
 
       <section>
         <h2>💬 Final Prompt: The Founder’s Message</h2>
-        <p>Your Sim must leave a legacy message:</p>
         <blockquote><em>“This is where we began. Whatever you build next, don’t forget where we came from.”</em></blockquote>
       </section>
+
+      <section>
+        <h2>🌟 Optional Add-On</h2>
+        <p>
+          Add the full GTA-inspired world save, but only interact with lots as you progress through the challenge.
+          When you move onto a new lot, bulldoze the existing house and evict any household currently living there.
+          Leave all other lots untouched until it's their time.
+        </p>
+        <p>
+          You'll live among these completed homes, but can't access them until earned—every neighbor’s build becomes your
+          visual reward for surviving.
+        </p>
+      </section>
+
+      <section>
+        <h2>⚙️ Gameplay Setup Note</h2>
+        <p>
+          Make sure auto-aging is turned off for all households unless a generation explicitly requires it.
+          This keeps narrative pacing and challenge progression in your control.
+        </p>
+      </section>
+
     </main>
   </div>
 
   <footer>
-    <p>&copy; 2025 CandyBlack – Sims 4 Legacy Challenge</p>
+    <p>&copy; 2025 CandyBlack – The Rebuild Challenge</p>
+  </footer>
+</body>
+</html>
+
   </footer>
 
   <audio id="rollSound" src="roll.mp3" preload="auto"></audio>
