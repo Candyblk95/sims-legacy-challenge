@@ -306,7 +306,7 @@ function generateSimIDCard() {
     const trait1 = localStorage.getItem("trait1") || "-";
     const trait2 = localStorage.getItem("trait2") || "-";
     const trait3 = localStorage.getItem("trait3") || "-";
-    const worldRaw = document.getElementById("worldResult")?.innerText || "";
+    const world = "Willow Creek: From Ashes";
     const world = worldRaw.split("–")[1]?.trim().split("\n")[0] || "Unknown World";
     const skills = window.rolledSkills || ["-", "-", "-"];
 
